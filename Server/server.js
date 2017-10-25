@@ -7,10 +7,12 @@ var port = process.env.PORT || 6777;
 
 io.on('connection', function(socket) {
 	if (socket.request.headers['is-client'] == "true") {
-		console.log("Client connected.")
+		console.log("Client connected.");
+		socket.join('users');
 	}
 	else {
-		console.log("Admin connected.")
+		console.log("Admin connected.");
+		socket.join('admins');
 	}
 });
 
