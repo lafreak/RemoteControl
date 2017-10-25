@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import Drawer from 'material-ui/Drawer';
+
+import ClientList from './clients/ClientList';
+
 import io from 'socket.io-client';
 
 let socket = io('http://localhost:6777');
@@ -27,8 +31,11 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-      </div>
+    	<div>
+    		<Drawer type="permanent">
+    			<ClientList clients={this.state.clients} />
+    		</Drawer>
+    	</div>
     );
   }
 }
