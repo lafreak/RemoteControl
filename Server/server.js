@@ -14,8 +14,16 @@ io.on('connection', function(socket) {
 		console.log("Admin connected.");
 		socket.join('admins');
 
+		var m = [];
 		var users = findAllInRoom('users');
-		console.log(users);
+
+		for (var i = 0; i < users.length; i++) {
+			m.push({
+				id: users[i].id
+			});
+		}
+
+		socket.emit('clients', m);
 	}
 });
 
@@ -31,6 +39,6 @@ function findAllInRoom(room) {
 			ret.push(io.sockets.adapter.nsp.connected[id]);
 		}
 	}
-	
+
 	return ret;
 }

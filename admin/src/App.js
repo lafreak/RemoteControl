@@ -19,7 +19,10 @@ class App extends Component {
   }
 
   _clientConnected(client) {
-  	console.log("Client connected: " + client);
+  	console.log("Client connected: " + client.id);
+  	var {clients} = this.state;
+  	clients.set(client.id, client);
+  	this.setState({clients});
   }
 
   render() {
