@@ -13,9 +13,24 @@ io.on('connection', function(socket) {
 	else {
 		console.log("Admin connected.");
 		socket.join('admins');
+
+		var users = findAllInRoom('users');
+		console.log(users);
 	}
 });
 
 http.listen(port, function() {
 	console.log(`Listening on port ${port}`);
 });
+
+function findAllInRoom(room) {
+	var ret = [],
+		room = io.sockets.adapter.rooms[room];
+	if (room) {
+		for (var id in room.sockets) {
+			ret.push(io.sockets.adapter.nsp.connected[id]);
+		}
+	}
+	
+	return ret;
+}
