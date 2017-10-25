@@ -6,7 +6,12 @@ var io = require('socket.io')(http);
 var port = process.env.PORT || 6777;
 
 io.on('connection', function(socket) {
-	console.log("Client connected.");
+	if (socket.request.headers['is-client'] == "true") {
+		console.log("Client connected.")
+	}
+	else {
+		console.log("Admin connected.")
+	}
 });
 
 http.listen(port, function() {
