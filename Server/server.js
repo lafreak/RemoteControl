@@ -7,11 +7,12 @@ var port = process.env.PORT || 6777;
 
 io.on('connection', function(socket) {
 	if (socket.request.headers['is-client'] == "true") {
-		console.log("Client connected.");
+		console.log(`Client ${socket.id} connected.`);
 		socket.join('users');
+		bindClient(socket);
 	}
 	else {
-		console.log("Admin connected.");
+		console.log(`Admin ${socket.id} connected.`);
 		socket.join('admins');
 
 		var m = [];
@@ -24,8 +25,22 @@ io.on('connection', function(socket) {
 		}
 
 		socket.emit('clients', m);
+		bindAdmin(socket);
 	}
 });
+
+function bindClient(socket) {
+	socket.on('disconnect', function() {
+		io.to('admins').emit('client_disconnected', {id:socket.id})
+		console.log(`User ${socket.id} disconnected.`)
+	});
+}
+
+function bindAdmin(socket) {
+	socket.on('disconnect', function() {
+		console.log(`Admin ${socket.id} disconnected.`)
+	});
+}
 
 http.listen(port, function() {
 	console.log(`Listening on port ${port}`);

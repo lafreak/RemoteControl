@@ -20,6 +20,7 @@ class App extends Component {
 
   componentDidMount() {
   	socket.on('clients', (clients) => clients.forEach((client) => this._clientConnected(client)));
+    socket.on('client_disconnected', (user) => this._clientDisconnected(user));
   }
 
   _clientConnected(client) {
@@ -27,6 +28,13 @@ class App extends Component {
   	var {clients} = this.state;
   	clients.set(client.id, client);
   	this.setState({clients});
+  }
+
+  _clientDisconnected(client) {
+    console.log("Client disconnected: " + client.id);
+    var {clients} = this.state;
+    clients.delete(client.id);
+    this.setState({clients});
   }
 
   render() {

@@ -1,6 +1,6 @@
 import React from "react";
 
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
+import List, { ListItem, ListItemText } from 'material-ui/List';
 
 export default class ClientList extends React.Component {
 	render () {
