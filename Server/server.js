@@ -9,6 +9,11 @@ io.on('connection', function(socket) {
 	if (socket.request.headers['is-client'] == "true") {
 		console.log(`Client ${socket.id} connected.`);
 		socket.join('users');
+
+		io.to('admins').emit('client_connected', {
+			id: socket.id
+		});
+
 		bindClient(socket);
 	}
 	else {

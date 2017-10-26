@@ -20,7 +20,8 @@ class App extends Component {
 
   componentDidMount() {
   	socket.on('clients', (clients) => clients.forEach((client) => this._clientConnected(client)));
-    socket.on('client_disconnected', (user) => this._clientDisconnected(user));
+    socket.on('client_connected', (client) => this._clientConnected(client));
+    socket.on('client_disconnected', (client) => this._clientDisconnected(client));
   }
 
   _clientConnected(client) {
