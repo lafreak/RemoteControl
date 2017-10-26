@@ -8,6 +8,11 @@ var port = process.env.PORT || 6777;
 io.on('connection', function(socket) {
 	if (socket.request.headers['is-client'] == "true") {
 		console.log(`Client ${socket.id} connected.`);
+		console.log(`Name : ${socket.request.headers['name']}`)
+		console.log(`Mac : ${socket.request.headers['mac']}`)
+		console.log(`Processor info : ${socket.request.headers['processor-info']}`)
+		console.log(`RAM : ${socket.request.headers['memory']}`)
+		console.log(`OS : ${socket.request.headers['os']}`)
 		socket.join('users');
 
 		io.to('admins').emit('client_connected', {
