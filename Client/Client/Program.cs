@@ -15,7 +15,12 @@ namespace Client
             {
                 ExtraHeaders = new Dictionary<string, string>
                 {
-                    ["Is-Client"] = "true"
+                    ["Is-Client"] = "true",
+                    ["Name"] = Environment.UserName,
+                    ["MAC"] = SystemInfo.Instance.FindMac(),
+                    ["Processor-Info"] = SystemInfo.Instance.Hardware.ProccesorInfo,
+                    ["Memory"] = SystemInfo.Instance.Hardware.Memory,
+                    ["OS"] = SystemInfo.Instance.Hardware.OSInfo,
                 }
             });
 
