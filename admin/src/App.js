@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Drawer from 'material-ui/Drawer';
+import Grid from 'material-ui/Grid';
 
 import ClientList from './clients/ClientList';
+import PanelList from './panels/PanelList'
 
 import io from 'socket.io-client';
 
@@ -14,7 +16,8 @@ class App extends Component {
   	super();
 
   	this.state = {
-  		clients: new Map()
+  		clients: new Map(),
+      dashboard: { id: 2 }
   	}
   }
 
@@ -41,11 +44,18 @@ class App extends Component {
 
   render() {
     return (
-    	<div>
-    		<Drawer type="permanent">
-    			<ClientList clients={this.state.clients} />
-    		</Drawer>
-    	</div>
+    	<Grid container>
+        <Grid item xl={2} lg={2} md={12} sm={12} xs={12}>
+      		<Drawer type="permanent">
+      			<ClientList clients={this.state.clients} />
+      		</Drawer>
+        </Grid>
+        <Grid item xl={8} lg={8} md={12} sm={12} xs={12}>
+          <PanelList dashboard={this.state.dashboard} />
+        </Grid>
+        <Grid item xl={2} lg={2}>
+        </Grid>
+    	</Grid>
     );
   }
 }
