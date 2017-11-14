@@ -13,7 +13,7 @@ export default class Dashboard extends React.Component {
         <CardHeader title="Dashboard" />
         <Divider />
         <CardMedia>
-        	<Map center={{ lat: 54.3932319, lng: 18.5683064 }} height={200} />
+        	<Map center={{ lat: this.props.client.lat, lng: this.props.client.lng }} height={200} />
         </CardMedia>
       </Card>
     )

@@ -8,7 +8,7 @@ export default class PanelList extends React.Component {
     return (
       <Grid container>
         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-        	<Dashboard />
+        	<Dashboard client={this.props.client} />
         </Grid>
       </Grid>
     );

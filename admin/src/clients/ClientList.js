@@ -8,7 +8,9 @@ export default class ClientList extends React.Component {
 			<List>
 			{
 				Array.from(this.props.clients).map(([i, c]) =>
-					<ListItem button>
+					<ListItem 
+						button
+						onClick={() => this.props.onClientChange(c.id)}>
 						<ListItemText primary={c.id} />
 					</ListItem>
 				)

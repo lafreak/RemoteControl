@@ -8,6 +8,7 @@ import ClientList from './clients/ClientList';
 import PanelList from './panels/PanelList'
 
 import io from 'socket.io-client';
+import axios from 'axios';
 
 let socket = io('http://localhost:6777');
 
@@ -16,9 +17,10 @@ class App extends Component {
   	super();
 
   	this.state = {
-  		clients: new Map(),
-      dashboard: { id: 2 }
+  		clients: new Map()
   	}
+
+    this.handleClientChange = this.handleClientChange.bind(this);
   }
 
   componentDidMount() {
@@ -29,10 +31,15 @@ class App extends Component {
   }
 
   _clientConnected(client) {
-  	console.log("Client connected: " + client.id);
-  	var {clients} = this.state;
-  	clients.set(client.id, client);
-  	this.setState({clients});
+    // temporary static ip
+    client.ip = 'github.com';
+
+    this.handleFreegeoip(client, () => {
+      console.log("Client connected: " + client.id);
+      var {clients} = this.state;
+      clients.set(client.id, client);
+      this.setState({clients});
+    });
   }
 
   _clientDisconnected(client) {
@@ -42,16 +49,44 @@ class App extends Component {
     this.setState({clients});
   }
 
+  handleFreegeoip(client, callback) {
+    axios.get(`https://freegeoip.net/json/${client.ip}`)
+    .then(res => {
+      client.lat = res.data.latitude;
+      client.lng = res.data.longitude;
+    }).catch(res => {
+      client.lat = 0;
+      client.lng = 0;
+    }).then(() => callback());
+  }
+
+  handleClientChange(id) {
+    var {clients, selectedClient} = this.state;
+
+    if (selectedClient) {
+      if (id === selectedClient.id) return;
+    }
+
+    selectedClient = clients.get(id);
+
+    this.setState({selectedClient});
+  }
+
   render() {
     return (
     	<Grid container>
         <Grid item xl={2} lg={2} md={12} sm={12} xs={12}>
       		<Drawer type="permanent">
-      			<ClientList clients={this.state.clients} />
+      			<ClientList 
+              clients={this.state.clients}
+              onClientChange={this.handleClientChange} />
       		</Drawer>
         </Grid>
         <Grid item xl={8} lg={8} md={12} sm={12} xs={12}>
-          <PanelList dashboard={this.state.dashboard} />
+        {
+          this.state.selectedClient &&
+          <PanelList client={this.state.selectedClient} />
+        }
         </Grid>
         <Grid item xl={2} lg={2}>
         </Grid>
