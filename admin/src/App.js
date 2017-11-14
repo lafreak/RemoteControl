@@ -32,7 +32,7 @@ class App extends Component {
 
   _clientConnected(client) {
     // temporary static ip
-    client.ip = 'github.com';
+    client.ip = 'kalonline.co.kr';
 
     this.handleFreegeoip(client, () => {
       console.log("Client connected: " + client.id);
@@ -79,6 +79,7 @@ class App extends Component {
       		<Drawer type="permanent">
       			<ClientList 
               clients={this.state.clients}
+              selectedId={this.state.selectedClient ? this.state.selectedClient.id : ""}
               onClientChange={this.handleClientChange} />
       		</Drawer>
         </Grid>
