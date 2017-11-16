@@ -10,7 +10,9 @@ export default class PanelList extends React.Component {
       <div>
         	<Dashboard client={this.props.client} />
           <ProcessExplorer 
-            onProcessRequest={this.props.onProcessRequest} />
+            data={this.props.process}
+            onProcessRequest={this.props.onProcessRequest}
+            onProcessKillRequest={this.props.onProcessKillRequest} />
       </div>
     );
   }

@@ -67,7 +67,7 @@ class App extends Component {
     socket.emit('processes', { id: this.state.selectedClient.id });
   }
   handleProcessKillRequest(id) {
-    console.log(`kill ${id}`);
+    socket.emit('kill_process', { id: this.state.selectedClient.id, processId: id});
   }
 
   handleClientChange(id) {
@@ -81,7 +81,7 @@ class App extends Component {
 
     this.setState({
       selectedClient,
-      process: []
+      process: [{Id: 1, Name: 'App1', Memory: 50000}, {Id: 2, Name: 'App2', Memory: 400020}]
     });
   }
 
