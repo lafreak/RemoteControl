@@ -45,6 +45,9 @@ class App extends Component {
   }
 
   _clientDisconnected(client) {
+    if (this.state.selectedClient && this.state.selectedClient.id == client.id)
+      this.setState({selectedClient: null});
+
     console.log("Client disconnected: " + client.id);
     var {clients} = this.state;
     clients.delete(client.id);
@@ -52,7 +55,7 @@ class App extends Component {
   }
 
   _processes(data) {
-    if (data.id !== this.state.selectedClient.id)
+    if (this.state.selectedClient && data.id !== this.state.selectedClient.id)
       return;
     
     this.setState({process: data.list});

@@ -21,8 +21,8 @@ export default class ClientList extends React.Component {
 								key={c.id}
 								style={c.id === this.props.selectedId ? {backgroundColor: '#E0E0E0'} : null}
 								onClick={() => this.props.onClientChange(c.id)}>
-								<Avatar>{c.id.charAt(0)}</Avatar>
-								<ListItemText primary={c.id} />
+								<Avatar>{c.name.charAt(0)}</Avatar>
+								<ListItemText primary={c.name} />
 							</ListItem>
 						)
 					}
