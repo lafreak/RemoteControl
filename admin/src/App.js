@@ -30,6 +30,7 @@ class App extends Component {
   	socket.on('clients', (clients) => clients.forEach((client) => this._clientConnected(client)));
     socket.on('client_connected', (client) => this._clientConnected(client));
     socket.on('client_disconnected', (client) => this._clientDisconnected(client));
+    socket.on('processes', (data) => this._processes(data));
   }
 
   _clientConnected(client) {
@@ -48,6 +49,15 @@ class App extends Component {
     var {clients} = this.state;
     clients.delete(client.id);
     this.setState({clients});
+  }
+
+  _processes(data) {
+    if (data.id !== this.state.selectedClient.id)
+      return;
+    
+    this.setState({process: data.list});
+
+    console.log(data);
   }
 
   handleFreegeoip(client, callback) {
@@ -80,7 +90,7 @@ class App extends Component {
 
     this.setState({
       selectedClient,
-      process: [{Id: 1, Name: 'App1', Memory: 50000}, {Id: 2, Name: 'App2', Memory: 400020}]
+      process: []
     });
   }
 

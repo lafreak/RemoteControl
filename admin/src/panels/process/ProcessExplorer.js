@@ -25,7 +25,7 @@ export default class ProcessExplorer extends React.Component {
                   onClick={() => this.props.onProcessKillRequest(p.Id)}>
                   <ListItemText 
                     primary={p.Name}
-                    secondary={parseInt(p.Memory / 1024 / 1024, 10) + 'MB'} />
+                    secondary={'RAM: ' + parseInt(p.WorkingSet64 / 1024 / 1024, 10) + 'MB, Threads: ' + p.ThreadsCount} />
                 </ListItem>
               )
             }

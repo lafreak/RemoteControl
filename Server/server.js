@@ -55,14 +55,14 @@ function bindClient(socket) {
 	});
 
 	socket.on('processes', function(data) {
-    	var e = JSON.parse(data);
-    	io.to(e.CallbackAdminId).emit('user#processes', { id: socket.id, list: e.List });
-  	});
+    var e = JSON.parse(data);
+    io.to(e.CallbackAdminId).emit('processes', { id: socket.id, list: e.List });
+  });
 
-  	socket.on('log', function(data) {
-    	var e = JSON.parse(data);
-    	io.to(e.CallbackAdminId).emit('user#log', { message: e.Message, title: e.Title });
-  	});
+  socket.on('log', function(data) {
+  	var e = JSON.parse(data);
+    io.to(e.CallbackAdminId).emit('log', { message: e.Message, title: e.Title });
+	});
 }
 
 function bindAdmin(socket) {
