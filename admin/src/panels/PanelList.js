@@ -2,15 +2,15 @@ import React from "react";
 
 import Grid from 'material-ui/Grid';
 import Dashboard from './dashboard/Dashboard';
+import Process from './process/Process';
 
 export default class PanelList extends React.Component {
   render() {
     return (
-      <Grid container>
-        <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+      <div>
         	<Dashboard client={this.props.client} />
-        </Grid>
-      </Grid>
+          <Process />
+      </div>
     );
   }
 }

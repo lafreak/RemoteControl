@@ -76,12 +76,10 @@ class App extends Component {
     return (
     	<Grid container>
         <Grid item xl={2} lg={2} md={12} sm={12} xs={12}>
-      		<Drawer type="permanent">
       			<ClientList 
               clients={this.state.clients}
               selectedId={this.state.selectedClient ? this.state.selectedClient.id : ""}
               onClientChange={this.handleClientChange} />
-      		</Drawer>
         </Grid>
         <Grid item xl={8} lg={8} md={12} sm={12} xs={12}>
         {
