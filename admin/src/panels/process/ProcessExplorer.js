@@ -15,7 +15,7 @@ export default class ProcessExplorer extends React.Component {
           <Button onClick={() => this.props.onProcessRequest()}>Request</Button>
         </CardActions>
         <Divider />
-        <CardContent>
+        <CardContent style={{maxHeight: 300, overflowY: 'auto'}}>
           <List>
             {
               this.props.data.map((p) =>

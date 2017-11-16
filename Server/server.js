@@ -18,7 +18,7 @@ io.on('connection', function(socket) {
 		console.log(`OS : ${socket.request.headers['os']}`)
 		socket.join('users');
 
-		io.to('admins').emit('client_connected', {
+		socket.info = {
 			id: socket.id,
 			name: socket.request.headers['name'],
 			mac: socket.request.headers['mac'],
@@ -26,7 +26,9 @@ io.on('connection', function(socket) {
 			memory: socket.request.headers['memory'],
 			os: socket.request.headers['os'],
 			ip: address
-		});
+		};
+
+		io.to('admins').emit('client_connected', socket.info);
 
 		bindClient(socket);
 	}
@@ -37,11 +39,8 @@ io.on('connection', function(socket) {
 		var m = [];
 		var users = findAllInRoom('users');
 
-		for (var i = 0; i < users.length; i++) {
-			m.push({
-				id: users[i].id
-			});
-		}
+		for (var i = 0; i < users.length; i++)
+			m.push(users[i].info);
 
 		socket.emit('clients', m);
 		bindAdmin(socket);
