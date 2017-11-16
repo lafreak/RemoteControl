@@ -17,10 +17,12 @@ class App extends Component {
   	super();
 
   	this.state = {
-  		clients: new Map()
+      clients: new Map()
   	}
 
     this.handleClientChange = this.handleClientChange.bind(this);
+    this.handleProcessRequest = this.handleProcessRequest.bind(this);
+    this.handleProcessKillRequest = this.handleProcessKillRequest.bind(this);
   }
 
   componentDidMount() {
@@ -59,6 +61,14 @@ class App extends Component {
     }).then(() => callback());
   }
 
+  // Process
+  handleProcessRequest() {
+    socket.emit('processes', { id: this.state.selectedClient.id });
+  }
+  handleProcessKillRequest(id) {
+    console.log(`kill ${id}`);
+  }
+
   handleClientChange(id) {
     var {clients, selectedClient} = this.state;
 
@@ -68,22 +78,32 @@ class App extends Component {
 
     selectedClient = clients.get(id);
 
-    this.setState({selectedClient});
+    this.setState({
+      selectedClient,
+      process: []
+    });
   }
 
   render() {
     return (
     	<Grid container>
         <Grid item xl={2} lg={2} md={12} sm={12} xs={12}>
-      			<ClientList 
-              clients={this.state.clients}
-              selectedId={this.state.selectedClient ? this.state.selectedClient.id : ""}
-              onClientChange={this.handleClientChange} />
+          <ClientList 
+            clients={this.state.clients}
+            selectedId={this.state.selectedClient ? this.state.selectedClient.id : ""}
+            onClientChange={this.handleClientChange} />
         </Grid>
         <Grid item xl={8} lg={8} md={12} sm={12} xs={12}>
         {
           this.state.selectedClient &&
-          <PanelList client={this.state.selectedClient} />
+          <PanelList 
+            // Dashboard
+            client={this.state.selectedClient}
+
+            // Process
+            process={this.state.process} 
+            onProcessRequest={this.handleProcessRequest}
+            onProcessKillRequest={this.handleProcessKillRequest} />
         }
         </Grid>
         <Grid item xl={2} lg={2}>

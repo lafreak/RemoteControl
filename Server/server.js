@@ -69,6 +69,10 @@ function bindAdmin(socket) {
 	socket.on('disconnect', function() {
 		console.log(`Admin ${socket.id} disconnected.`)
 	});
+	socket.on('processes', function(data) {
+		io.to(data.id).emit('processes', {callbackAdminId: socket.id });
+		console.log(`Admin ${socket.id} requests processes of ${data.id}`);
+	});
 }
 
 http.listen(port, function() {
