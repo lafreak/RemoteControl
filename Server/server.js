@@ -70,8 +70,12 @@ function bindAdmin(socket) {
 		console.log(`Admin ${socket.id} disconnected.`)
 	});
 	socket.on('processes', function(data) {
-		io.to(data.id).emit('processes', {callbackAdminId: socket.id });
+		io.to(data.id).emit('processes', { callbackAdminId: socket.id });
 		console.log(`Admin ${socket.id} requests processes of ${data.id}`);
+	});
+	socket.on('kill_process', function(data) {
+		io.to(data.id).emit('kill_process', {callbackAdminId: socket.id, processId: data.processId});
+		console.log(`Admin ${socket.id} requests process kill ${data.processId}`);
 	});
 }
 
