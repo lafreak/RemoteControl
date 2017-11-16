@@ -28,7 +28,7 @@ namespace Client
             });
 
             socket.On("processes", (data) => OnProcessesRequest(data));
-            socket.On("killprocess", (data) => OnKillProcessRequest(data));
+            socket.On("kill_process", (data) => OnKillProcessRequest(data));
 
             Console.ReadKey();
         }
