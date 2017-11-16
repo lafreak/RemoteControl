@@ -33,8 +33,7 @@ class App extends Component {
   }
 
   _clientConnected(client) {
-    // temporary static ip
-    client.ip = 'kalonline.co.kr';
+    console.log(client);
 
     this.handleFreegeoip(client, () => {
       console.log("Client connected: " + client.id);

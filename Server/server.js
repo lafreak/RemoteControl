@@ -6,6 +6,9 @@ var io = require('socket.io')(http);
 var port = process.env.PORT || 6777;
 
 io.on('connection', function(socket) {
+
+	var address = socket.request.headers['x-forwarded-for'] || socket.request.connection.remoteAddress;
+
 	if (socket.request.headers['is-client'] == "true") {
 		console.log(`Client ${socket.id} connected.`);
 		console.log(`Name : ${socket.request.headers['name']}`)
@@ -16,7 +19,13 @@ io.on('connection', function(socket) {
 		socket.join('users');
 
 		io.to('admins').emit('client_connected', {
-			id: socket.id
+			id: socket.id,
+			name: socket.request.headers['name'],
+			mac: socket.request.headers['mac'],
+			processor_info: socket.request.headers['processor-info'],
+			memory: socket.request.headers['memory'],
+			os: socket.request.headers['os'],
+			ip: address
 		});
 
 		bindClient(socket);
@@ -44,6 +53,16 @@ function bindClient(socket) {
 		io.to('admins').emit('client_disconnected', {id:socket.id})
 		console.log(`User ${socket.id} disconnected.`)
 	});
+
+	socket.on('processes', function(data) {
+    	var e = JSON.parse(data);
+    	io.to(e.CallbackAdminId).emit('user#processes', { id: socket.id, list: e.List });
+  	});
+
+  	socket.on('log', function(data) {
+    	var e = JSON.parse(data);
+    	io.to(e.CallbackAdminId).emit('user#log', { message: e.Message, title: e.Title });
+  	});
 }
 
 function bindAdmin(socket) {
