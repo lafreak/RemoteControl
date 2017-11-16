@@ -63,11 +63,11 @@ namespace Client
 
         private static void OnKillProcessRequest(object data)
         {
-            var obj = JsonConvert.DeserializeAnonymousType(data.ToString(), new { Id = 0, CallbackAdminId = "" });
+            var obj = JsonConvert.DeserializeAnonymousType(data.ToString(), new { processId = 0, CallbackAdminId = "" });
 
             try
             {
-                Engine.KillProcess(obj.Id);
+                Engine.KillProcess(obj.processId);
             }
             catch (Exception e)
             {
