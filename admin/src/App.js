@@ -6,10 +6,12 @@ import Grid from 'material-ui/Grid';
 import ClientList from './clients/ClientList';
 import PanelList from './panels/PanelList'
 
-import io from 'socket.io-client';
 import axios from 'axios';
 
-let socket = io('http://localhost:6777');
+//import io from 'socket.io-client';
+//let socket = io('http://localhost:6777');
+
+import {socket} from './Socket';
 
 class App extends Component {
   constructor() {
