@@ -24,12 +24,12 @@ export default class Dashboard extends React.Component {
                 <TableCell>{this.props.client.processor_info}</TableCell>
               </TableRow>
               <TableRow style={{height: 10}}>
-                <TableCell>MAC Address</TableCell>
-                <TableCell>{this.props.client.mac}</TableCell>
-              </TableRow>
-              <TableRow style={{height: 10}}>
                 <TableCell>Operating System</TableCell>
                 <TableCell>{this.props.client.os}</TableCell>
+              </TableRow>
+              <TableRow style={{height: 10}}>
+                <TableCell>MAC Address</TableCell>
+                <TableCell>{this.props.client.mac}</TableCell>
               </TableRow>
               <TableRow style={{height: 10}}>
                 <TableCell>RAM Memory</TableCell>

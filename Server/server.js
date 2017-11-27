@@ -7,7 +7,7 @@ var port = process.env.PORT || 6777;
 
 io.on('connection', function(socket) {
 
-	var address = socket.request.headers['x-forwarded-for'] || socket.request.connection.remoteAddress;
+	//var address = socket.request.headers['x-forwarded-for'] || socket.request.connection.remoteAddress;
 
 	if (socket.request.headers['is-client'] == "true") {
 		console.log(`Client ${socket.id} connected.`);
@@ -25,7 +25,7 @@ io.on('connection', function(socket) {
 			processor_info: socket.request.headers['processor-info'],
 			memory: socket.request.headers['memory'],
 			os: socket.request.headers['os'],
-			ip: address
+			ip: ip(socket)
 		};
 
 		io.to('admins').emit('client_connected', socket.info);
@@ -92,4 +92,9 @@ function findAllInRoom(room) {
 	}
 
 	return ret;
+}
+
+function ip(client) {
+  var address = client.request.headers['x-forwarded-for'] || client.request.connection.remoteAddress;
+  return address.replace(/^.*:/, '');
 }
