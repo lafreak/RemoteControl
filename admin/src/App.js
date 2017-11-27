@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import Drawer from 'material-ui/Drawer';
 import Grid from 'material-ui/Grid';
 
 import ClientList from './clients/ClientList';
@@ -45,7 +44,7 @@ class App extends Component {
   }
 
   _clientDisconnected(client) {
-    if (this.state.selectedClient && this.state.selectedClient.id == client.id)
+    if (this.state.selectedClient && this.state.selectedClient.id === client.id)
       this.setState({selectedClient: null});
 
     console.log("Client disconnected: " + client.id);

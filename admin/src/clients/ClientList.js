@@ -2,7 +2,6 @@ import React from "react";
 
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
-import Grid from 'material-ui/Grid';
 import Card, { CardHeader, CardMedia } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import List, { ListItem, ListItemText } from 'material-ui/List';
-import Card, { CardHeader, CardActions, CardContent } from 'material-ui/Card';
+import Card, { CardHeader, CardActions, CardMedia } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 
@@ -15,12 +15,11 @@ export default class ProcessExplorer extends React.Component {
           <Button onClick={() => this.props.onProcessRequest()}>Request</Button>
         </CardActions>
         <Divider />
-        <CardContent style={{maxHeight: 300, overflowY: 'auto'}}>
+        <CardMedia style={{height: 333, overflowY: 'auto'}}>
           <List>
             {
               this.props.data.map((p) =>
                 <ListItem button dense
-                  button
                   key={p.Id}
                   onClick={() => this.props.onProcessKillRequest(p.Id)}>
                   <ListItemText 
@@ -30,7 +29,7 @@ export default class ProcessExplorer extends React.Component {
               )
             }
             </List>
-        </CardContent>
+        </CardMedia>
       </Card>
     )
   }
