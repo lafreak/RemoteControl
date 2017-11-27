@@ -2,6 +2,7 @@ import React from 'react';
 
 import Map from './Map';
 
+import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Card, { CardHeader, CardContent, CardMedia } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 
@@ -12,34 +13,34 @@ export default class Dashboard extends React.Component {
         <CardHeader title="Dashboard" />
         <Divider />
         <CardContent>
-          <table>
-            <tbody>
-              <tr>
-                <td style={{width: 150}}>Name:</td>
-                <td>{this.props.client.name}</td>
-              </tr>
-              <tr>
-                <td>Processor:</td>
-                <td>{this.props.client.processor_info}</td>
-              </tr>
-              <tr>
-                <td>MAC:</td>
-                <td>{this.props.client.mac}</td>
-              </tr>
-              <tr>
-                <td>OS:</td>
-                <td>{this.props.client.os}</td>
-              </tr>
-              <tr>
-                <td>RAM:</td>
-                <td>{this.props.client.memory}</td>
-              </tr>
-              <tr>
-                <td>IP:</td>
-                <td>{this.props.client.ip}</td>
-              </tr>
-            </tbody>
-          </table>
+          <Table>
+            <TableBody>
+              <TableRow style={{height: 10}} hover={true}>
+                <TableCell>Name</TableCell>
+                <TableCell>{this.props.client.name}</TableCell>
+              </TableRow>
+              <TableRow style={{height: 10}} hover={true}>
+                <TableCell>Processor</TableCell>
+                <TableCell>{this.props.client.processor_info}</TableCell>
+              </TableRow>
+              <TableRow style={{height: 10}} hover={true}>
+                <TableCell>MAC Address</TableCell>
+                <TableCell>{this.props.client.mac}</TableCell>
+              </TableRow>
+              <TableRow style={{height: 10}} hover={true}>
+                <TableCell>Operating System</TableCell>
+                <TableCell>{this.props.client.os}</TableCell>
+              </TableRow>
+              <TableRow style={{height: 10}} hover={true}>
+                <TableCell>RAM Memory</TableCell>
+                <TableCell>{this.props.client.memory}</TableCell>
+              </TableRow>
+              <TableRow style={{height: 10}} hover={true}>
+                <TableCell>IP Address</TableCell>
+                <TableCell>{this.props.client.ip}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </CardContent>
         <CardMedia>
         	<Map center={{ lat: this.props.client.lat, lng: this.props.client.lng }} height={200} />
