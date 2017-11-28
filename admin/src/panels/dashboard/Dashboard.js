@@ -3,7 +3,7 @@ import React from 'react';
 import Map from './Map';
 
 import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table';
-import Card, { CardHeader, CardContent, CardMedia } from 'material-ui/Card';
+import Card, { CardHeader, CardMedia } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 
 export default class Dashboard extends React.Component {

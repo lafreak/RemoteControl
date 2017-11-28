@@ -1,14 +1,11 @@
 import React from 'react';
-import FileBrowser from 'react-keyed-file-browser';
 
-import List, { ListItem, ListItemText } from 'material-ui/List';
+import List from 'material-ui/List';
 import Card, { CardHeader, CardActions, CardMedia } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 
 import Directory from './Directory';
-
-import {socket} from './../../Socket';
 
 export default class FileExplorer extends React.Component {
   constructor() {
