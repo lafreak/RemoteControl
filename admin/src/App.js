@@ -100,7 +100,7 @@ class App extends Component {
 
   render() {
     return (
-    	<Grid container>
+    	<Grid container spacing={0}>
         <Grid item xl={2} lg={2} md={12} sm={12} xs={12}>
           <ClientList 
             clients={this.state.clients}
