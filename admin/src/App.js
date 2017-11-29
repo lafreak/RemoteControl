@@ -96,6 +96,8 @@ class App extends Component {
       selectedClient,
       process: []
     });
+
+    socket.emit('processes', { id });
   }
 
   render() {
