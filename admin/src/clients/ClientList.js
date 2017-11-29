@@ -9,7 +9,7 @@ export default class ClientList extends React.Component {
 	render () {
 		return (
 			<Card style={{marginBottom: 20}}>
-				<CardHeader title="Clients" />
+				<CardHeader title="Clients" subheader="Connected users" style={{textAlign: 'center'}} />
 				<Divider />
 				<CardMedia>
 					<List>

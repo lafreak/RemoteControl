@@ -10,7 +10,7 @@ export default class Dashboard extends React.Component {
   render() {
     return (
       <Card style={{marginBottom: 20}}>
-        <CardHeader title="Dashboard" />
+        <CardHeader title="Dashboard" subheader="Main information about client hardware and localizaton" style={{textAlign: 'center'}} />
         <Divider />
         <CardMedia>
           <Table style={{width: '100%'}}>

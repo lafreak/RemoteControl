@@ -50,7 +50,7 @@ export default class FileExplorer extends React.Component {
   render() {
     return (
       <Card style={{marginBottom: 20}}>
-        <CardHeader title="File Explorer" />
+        <CardHeader title="File Explorer" subheader="Upload, download or run any file on plugged drives" style={{textAlign: 'center'}}  />
         <Divider />
         <CardActions>
           <Button onClick={() => {}}>Request</Button>

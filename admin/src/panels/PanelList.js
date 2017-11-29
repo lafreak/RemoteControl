@@ -8,7 +8,7 @@ import Grid from 'material-ui/Grid';
 export default class PanelList extends React.Component {
   render() {
     return (
-      <Grid container spacing={0}>
+      <Grid container>
         <Grid item xl={6} lg={6} md={12} sm={12} xs={12}>
         	<Dashboard client={this.props.client} />
         </Grid>

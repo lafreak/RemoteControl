@@ -100,29 +100,31 @@ class App extends Component {
 
   render() {
     return (
-    	<Grid container spacing={0}>
-        <Grid item xl={2} lg={2} md={12} sm={12} xs={12}>
-          <ClientList 
-            clients={this.state.clients}
-            selectedId={this.state.selectedClient ? this.state.selectedClient.id : ""}
-            onClientChange={this.handleClientChange} />
-        </Grid>
-        <Grid item xl={8} lg={8} md={12} sm={12} xs={12}>
-        {
-          this.state.selectedClient &&
-          <PanelList 
-            // Dashboard
-            client={this.state.selectedClient}
+      <div style={{padding: 0, overflowX: 'hidden'}}>
+        <Grid container>
+          <Grid item xl={2} lg={2} md={12} sm={12} xs={12}>
+            <ClientList 
+              clients={this.state.clients}
+              selectedId={this.state.selectedClient ? this.state.selectedClient.id : ""}
+              onClientChange={this.handleClientChange} />
+          </Grid>
+          <Grid item xl={8} lg={8} md={12} sm={12} xs={12}>
+          {
+            this.state.selectedClient &&
+            <PanelList 
+              // Dashboard
+              client={this.state.selectedClient}
 
-            // Process
-            process={this.state.process} 
-            onProcessRequest={this.handleProcessRequest}
-            onProcessKillRequest={this.handleProcessKillRequest} />
-        }
+              // Process
+              process={this.state.process} 
+              onProcessRequest={this.handleProcessRequest}
+              onProcessKillRequest={this.handleProcessKillRequest} />
+          }
+          </Grid>
+          <Grid item xl={2} lg={2}>
+          </Grid>
         </Grid>
-        <Grid item xl={2} lg={2}>
-        </Grid>
-    	</Grid>
+      </div>
     );
   }
 }

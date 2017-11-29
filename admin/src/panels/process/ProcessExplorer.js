@@ -37,7 +37,7 @@ export default class ProcessExplorer extends React.Component {
     return (
       <div>
         <Card style={{marginBottom: 20}}>
-          <CardHeader title="Process Explorer" />
+          <CardHeader title="Process Explorer" subheader="Search and kill any running process" style={{textAlign: 'center'}}  />
           <Divider />
           <CardActions>
             <Button onClick={() => this.props.onProcessRequest()}>Request</Button>
