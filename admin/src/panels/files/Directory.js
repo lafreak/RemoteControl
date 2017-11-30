@@ -9,6 +9,8 @@ import FolderOpenIcon from 'material-ui-icons/FolderOpen';
 import InsertDriveFileIcon from 'material-ui-icons/InsertDriveFile';
 import ComputerIcon from 'material-ui-icons/Computer';
 
+import {socket, selectedId} from './../../Socket';
+
 export default class Directory extends React.Component {
   state = {open: false};
 
