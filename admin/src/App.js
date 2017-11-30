@@ -102,7 +102,7 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{padding: 0, overflowX: 'hidden'}}>
+      <div>
         <Grid container>
           <Grid item xl={2} lg={2} md={12} sm={12} xs={12}>
             <ClientList 
