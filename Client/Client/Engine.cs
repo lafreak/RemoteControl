@@ -65,17 +65,14 @@ namespace Client
             var list = new List<DirectoryOrFile>();
 
             // My Computer
-            list.Add(new DirectoryOrFile { Accessible = true, Path = "My Computer", Type = DirectoryOrFile.TYPE.COMPUTER });
+            list.Add(new DirectoryOrFile("My Computer") { Accessible = true, Type = DirectoryOrFile.TYPE.COMPUTER });
 
             if (path == null)
             {
                 // Add active drives
                 foreach (var drive in DriveInfo.GetDrives().Where(d => d.IsReady))
                 {
-                    list.Add(new DirectoryOrFile()
-                    {
-                        Path = drive.Name
-                    });
+                    list.Add(new DirectoryOrFile(drive.Name));
                 }
             }
             else
@@ -88,17 +85,12 @@ namespace Client
                 // Add parent catalog
                 if (directoryInfo.Parent != null)
                 {
-                    list.Add(new DirectoryOrFile()
-                    {
-                        Path = directoryInfo.Parent.FullName.Replace('\\', '/')
-                    });
+                    list.Add(new DirectoryOrFile(directoryInfo.Parent.FullName.Replace('\\', '/')));
                 }
 
                 // Add self
-                list.Add(new DirectoryOrFile()
-                {
-                    Path = directoryInfo.FullName.Replace('\\', '/')
-                });
+                list.Add(new DirectoryOrFile(directoryInfo.FullName.Replace('\\', '/')));
+
 
                 // Add children directories
                 foreach (var directory in directoryInfo.GetDirectories())
@@ -114,9 +106,8 @@ namespace Client
                         accessible = false;
                     }
 
-                    list.Add(new DirectoryOrFile()
+                    list.Add(new DirectoryOrFile(directory.FullName.Replace('\\', '/'))
                     {
-                        Path = directory.FullName.Replace('\\', '/'),
                         Accessible = accessible
                     });
                 }
@@ -124,10 +115,9 @@ namespace Client
                 // Add children files
                 foreach (var file in directoryInfo.GetFiles())
                 {
-                    list.Add(new DirectoryOrFile()
+                    list.Add(new DirectoryOrFile(file.FullName.Replace('\\', '/'))
                     {
-                        Type = DirectoryOrFile.TYPE.FILE,
-                        Path = file.FullName.Replace('\\', '/'),
+                        Type = DirectoryOrFile.TYPE.FILE, 
                         Size = file.Length
                     });
                 }

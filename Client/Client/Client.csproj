@@ -85,6 +85,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DirectoryOrFile.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Hardware.cs" />
     <Compile Include="Process.cs" />

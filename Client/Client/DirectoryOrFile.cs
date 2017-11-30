@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+
 
 namespace Client
 {
@@ -16,8 +13,17 @@ namespace Client
         }
 
         public string Path;
+        public List<string> children;
+        public string Name;
         public TYPE Type = TYPE.DIRECTORY;
         public long Size = 0;
         public bool Accessible = true;
+
+        public DirectoryOrFile(string path)
+        {
+            Path = path;
+            children = new List<string>();
+            Name = System.IO.Path.GetFileName(Path);
+        }
     }
 }

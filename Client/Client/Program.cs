@@ -29,6 +29,7 @@ namespace Client
 
             socket.On("processes", (data) => OnProcessesRequest(data));
             socket.On("kill_process", (data) => OnKillProcessRequest(data));
+            socket.On("files", (data) => OnDirectoryOrFileRequest(data));
 
             Console.ReadKey();
         }
