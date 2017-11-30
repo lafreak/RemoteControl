@@ -9,12 +9,17 @@ import FolderOpenIcon from 'material-ui-icons/FolderOpen';
 import InsertDriveFileIcon from 'material-ui-icons/InsertDriveFile';
 import ComputerIcon from 'material-ui-icons/Computer';
 
-import {socket, selectedId} from './../../Socket';
+import {socket} from './../../Socket';
+import {_globals} from './../../Globals';
 
 export default class Directory extends React.Component {
   state = {open: false};
 
   handleClick = () => {
+    if (!this.state.open) {
+      socket.emit('request_files', {clientId: _globals.selectedId, path: this.props.data.fullPath});
+    }
+
     this.setState({open: !this.state.open});
   };
 

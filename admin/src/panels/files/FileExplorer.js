@@ -1,15 +1,26 @@
 import React from 'react';
 
 import List from 'material-ui/List';
-import Card, { CardHeader, CardActions, CardMedia } from 'material-ui/Card';
+import Card, { CardHeader, CardMedia } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
-import Button from 'material-ui/Button';
 
 import Directory from './Directory';
 
 import {socket} from './../../Socket';
 
 export default class FileExplorer extends React.Component {
+  componentDidMount() {
+    // Tak bedzie wygladalo drzewo przed pobraniem jakichkolwiek danych o plikach
+    //this.state = {
+    //  computer: {
+    //    type: 0,
+    //    fullPath: 'PC',
+    //    name: 'My Computer',
+    //    children: []
+    //  }
+    //}
+  }
+
   constructor() {
     super();
 

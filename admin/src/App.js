@@ -12,6 +12,7 @@ import axios from 'axios';
 //let socket = io('http://localhost:6777');
 
 import {socket} from './Socket';
+import {_globals} from './Globals';
 
 class App extends Component {
   constructor() {
@@ -35,10 +36,7 @@ class App extends Component {
   }
 
   _clientConnected(client) {
-    console.log(client);
-
     this.handleFreegeoip(client, () => {
-      console.log("Client connected: " + client.id);
       var {clients} = this.state;
       clients.set(client.id, client);
       this.setState({clients});
@@ -84,6 +82,8 @@ class App extends Component {
   }
 
   handleClientChange(id) {
+    _globals.selectedId = id;
+
     var {clients, selectedClient} = this.state;
 
     if (selectedClient) {
@@ -102,7 +102,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{padding: 0, overflowX: 'hidden'}}>
         <Grid container>
           <Grid item xl={2} lg={2} md={12} sm={12} xs={12}>
             <ClientList 
