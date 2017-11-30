@@ -1,14 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Client
 {
-    public class Engine
+    public sealed class Engine
     {
-        public static List<Process> ListProcesses()
+        private static Engine m_Instance = null;
+
+        private Engine() { }
+
+        public static Engine Instance
+        {
+            get
+            {
+                if (m_Instance == null)
+                    m_Instance = new Engine();
+                return m_Instance;
+            }
+        }
+
+        public List<Process> ListProcesses()
         {
             var list = new List<Process>();
 
@@ -39,10 +54,92 @@ namespace Client
             return list;
         }
 
-        public static void KillProcess(int id)
+        public void KillProcess(int id)
         {
             System.Diagnostics.Process process = System.Diagnostics.Process.GetProcessById(id);
             process.Kill();
         }
+
+        public List<DirectoryOrFile> ListDirectoryOrFile(string path)
+        {
+            var list = new List<DirectoryOrFile>();
+
+            // My Computer
+            list.Add(new DirectoryOrFile { Accessible = true, Path = "My Computer", Type = DirectoryOrFile.TYPE.COMPUTER });
+
+            if (path == null)
+            {
+                // Add active drives
+                foreach (var drive in DriveInfo.GetDrives().Where(d => d.IsReady))
+                {
+                    list.Add(new DirectoryOrFile()
+                    {
+                        Path = drive.Name
+                    });
+                }
+            }
+            else
+            {
+                if (IsDrive(path))
+                    path += "/";
+
+                var directoryInfo = new DirectoryInfo(path);
+
+                // Add parent catalog
+                if (directoryInfo.Parent != null)
+                {
+                    list.Add(new DirectoryOrFile()
+                    {
+                        Path = directoryInfo.Parent.FullName.Replace('\\', '/')
+                    });
+                }
+
+                // Add self
+                list.Add(new DirectoryOrFile()
+                {
+                    Path = directoryInfo.FullName.Replace('\\', '/')
+                });
+
+                // Add children directories
+                foreach (var directory in directoryInfo.GetDirectories())
+                {
+                    bool accessible = true;
+
+                    try
+                    {
+                        directory.GetDirectories();
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+                        accessible = false;
+                    }
+
+                    list.Add(new DirectoryOrFile()
+                    {
+                        Path = directory.FullName.Replace('\\', '/'),
+                        Accessible = accessible
+                    });
+                }
+
+                // Add children files
+                foreach (var file in directoryInfo.GetFiles())
+                {
+                    list.Add(new DirectoryOrFile()
+                    {
+                        Type = DirectoryOrFile.TYPE.FILE,
+                        Path = file.FullName.Replace('\\', '/'),
+                        Size = file.Length
+                    });
+                }
+            }
+
+            return list;
+        }
+
+        private bool IsDrive(string path)
+        {
+            return path != null && path.Length == 2 && path[1] == ':';
+        }
+
     }
 }

