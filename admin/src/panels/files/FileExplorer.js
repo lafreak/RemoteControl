@@ -21,8 +21,8 @@ export default class FileExplorer extends React.Component {
         ClientId: '151gkeigjo43ti34i',
         OriginalPath: 'C:/Program Files/WindowsDefender',
         Files: [
-          { type: 1, name: 'bin', children: [] },
-          { type: 2, name: 'Defender.exe' }
+          { type: 1, fullPath: 'C:/Program Files/WindowsDefender/bin', name: 'bin', children: [] },
+          { type: 2, fullPath: 'C:/Program Files/WindowsDefender/Defender.exe', name: 'Defender.exe' }
         ]
       }
       */
@@ -33,6 +33,7 @@ export default class FileExplorer extends React.Component {
     //this.state = {
     //  computer: {
     //    type: 0,
+    //    fullPath: 'PC',
     //    name: 'My Computer',
     //    children: []
     //  }
@@ -43,32 +44,36 @@ export default class FileExplorer extends React.Component {
       computer: 
       {
         type: 0, // My Computer=0, Folder/Disk=1, File=2
+        fullPath: 'PC',
         name: 'My Computer',
         children: [
           {
             type: 1,
+            fullPath: 'C:',
             name: 'C:',
             children: [
-              { type: 2, name: 'cat.png' },
-              { type: 2, name: 'dog.png' }
+              { type: 2, fullPath: 'C:/cat.png', name: 'cat.png' },
+              { type: 2, fullPath: 'C:/dog.png',name: 'dog.png' }
             ]
           },
           {
             type: 1,
+            fullPath: 'D:',
             name: 'D:',
             children: [
               {
                 type: 1,
+                fullPath: 'D:/Pigeons',
                 name: 'Pigeons',
                 children: [
-                  { type: 2, name: 'pigeon_2.png' },
-                  { type: 2, name: 'pigeon_3.png' }
+                  { type: 2, fullPath: 'D:/Pigeons/pigeon_2.png', name: 'pigeon_2.png' },
+                  { type: 2, fullPath: 'D:/Pigeons/pigeon_3.png', name: 'pigeon_3.png' }
                 ]
               },
-              { type: 2, name: 'cat.png' },
-              { type: 2, name: 'cat2.png' },
-              { type: 2, name: 'dog1.png' },
-              { type: 2, name: 'dog2.png' }
+              { type: 2, fullPath: 'D:/cat.png', name: 'cat.png' },
+              { type: 2, fullPath: 'D:/cat2.png', name: 'cat2.png' },
+              { type: 2, fullPath: 'D:/dog1.png', name: 'dog1.png' },
+              { type: 2, fullPath: 'D:/dog2.png', name: 'dog2.png' }
             ]
           }
         ]
@@ -77,8 +82,8 @@ export default class FileExplorer extends React.Component {
 
     // Przykladowy insert kiedy dane przyjda
     this.insert('D:/Pigeons', [
-      { type: 1, name: 'bin', children: [] },
-      { type: 2, name: 'Defender.exe' }
+      { type: 1, fullPath: 'D:/Pigeons/bin', name: 'bin', children: [] },
+      { type: 2, fullPath: 'D:/Pigeons/Defender.exe', name: 'Defender.exe' }
     ]);
   }
 
