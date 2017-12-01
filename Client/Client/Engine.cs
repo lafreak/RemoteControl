@@ -67,7 +67,7 @@ namespace Client
             // My Computer
             list.Add(new DirectoryOrFile("My Computer") { Accessible = true, Type = DirectoryOrFile.TYPE.COMPUTER });
 
-            if (path == "PC")
+            if (path == null)
             {
                 // Add active drives
                 foreach (var drive in DriveInfo.GetDrives().Where(d => d.IsReady))

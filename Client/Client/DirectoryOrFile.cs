@@ -7,9 +7,9 @@ namespace Client
     {
         public enum TYPE
         {
+            COMPUTER,
             DIRECTORY,
-            FILE,
-            COMPUTER
+            FILE
         }
 
         public string Path;

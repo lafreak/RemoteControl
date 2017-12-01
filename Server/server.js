@@ -61,6 +61,7 @@ function bindClient(socket) {
 	socket.on('files', function(data) {
     var e = JSON.parse(data);
     io.to(e.CallbackAdminId).emit('files', { id: socket.id, OriginalPath: e.Path, Files: e.List });
+    console.log(data);
   });
 
   socket.on('log', function(data) {
@@ -77,6 +78,13 @@ function bindAdmin(socket) {
 		io.to(data.id).emit('processes', { callbackAdminId: socket.id });
 		console.log(`Admin ${socket.id} requests processes of ${data.id}`);
 	});
+
+	socket.on('request_files', function(data) {
+		// Rafal : znowu nie trzymasz konwencji, zawsze bylo id, a nie clientId
+		io.to(data.clientId).emit('files', { callbackAdminId: socket.id });
+		console.log(data);
+	});
+
 	socket.on('kill_process', function(data) {
 		io.to(data.id).emit('kill_process', {callbackAdminId: socket.id, processId: data.processId});
 		console.log(`Admin ${socket.id} requests process kill ${data.processId}`);
