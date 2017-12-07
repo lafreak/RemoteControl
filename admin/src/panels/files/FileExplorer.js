@@ -89,9 +89,12 @@ export default class FileExplorer extends React.Component {
   }
 
   findNode = (path) => {
-    var directories = path.split("/");
     var node = this.state.computer;
+    if (path.startsWith("PC")) {
+      return node;
+    }    
 
+    var directories = path.split("/");
     directories.some(function(directory) {
       var foundChild = null;
 
