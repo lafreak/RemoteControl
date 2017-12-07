@@ -29,8 +29,8 @@ export default class Stream extends Component {
   }
 
   componentWillUnmount() {
-    this.refs.video.removeEventListener('play');
-    this.refs.video.removeEventListener('pause');
+    //this.refs.video.removeEventListener('play');
+    //this.refs.video.removeEventListener('pause');
   }
 
   play() {

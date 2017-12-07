@@ -7,12 +7,27 @@ import Divider from 'material-ui/Divider';
 import Directory from './Directory';
 
 import {socket} from './../../Socket';
+import {_globals} from './../../Globals';
+
+const computer = {
+  type: 0,
+  fullPath: 'PC',
+  name: 'My Computer',
+  children: []
+};
 
 export default class FileExplorer extends React.Component {
+  componentWillUnmount() {
+    this.setState({computer});
+  }
+
   constructor() {
     super();
 
     socket.on('files', (data) => {
+      //if (_globals.selectedId !== data.ClientId)
+      //  return;
+
       // Example response after request: 'C:/Program Files/WindowsDefender'
       /*
       data: {
@@ -28,14 +43,7 @@ export default class FileExplorer extends React.Component {
     });
 
     // Initial State
-    this.state = {
-      computer: {
-        type: 0,
-        fullPath: 'PC',
-        name: 'My Computer',
-        children: []
-      }
-    }
+    this.state = {computer};
 
     // Full working example
     /*

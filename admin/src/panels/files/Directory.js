@@ -34,7 +34,7 @@ export default class Directory extends React.Component {
   render() {
     return (
       <div>
-        <ListItem key={this.props.data.name} button onClick={this.handleClick} style={{paddingLeft: this.props.padding}}>
+        <ListItem key={this.props.data.fullPath} button onClick={this.handleClick} style={{paddingLeft: this.props.padding}}>
           <ListItemIcon>
             {this.icon(this.props.data.type)}
           </ListItemIcon>

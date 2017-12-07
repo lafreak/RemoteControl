@@ -44,13 +44,15 @@ class App extends Component {
   }
 
   _clientDisconnected(client) {
+    var {clients, selectedClient} = this.state;
+
     if (this.state.selectedClient && this.state.selectedClient.id === client.id)
-      this.setState({selectedClient: null});
+      selectedClient = null;
 
     console.log("Client disconnected: " + client.id);
-    var {clients} = this.state;
+    
     clients.delete(client.id);
-    this.setState({clients});
+    this.setState({clients, selectedClient});
   }
 
   _processes(data) {
@@ -58,8 +60,6 @@ class App extends Component {
       return;
     
     this.setState({process: data.list});
-
-    console.log(data);
   }
 
   handleFreegeoip(client, callback) {
