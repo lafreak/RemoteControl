@@ -14,7 +14,8 @@ namespace Client
 
         static void Main(string[] args)
         {
-            socket = IO.Socket("http://145.239.82.140:6777", new IO.Options
+            //socket = IO.Socket("http://145.239.82.140:6777", new IO.Options
+            socket = IO.Socket("http://localhost:6777", new IO.Options
             {
                 ExtraHeaders = new Dictionary<string, string>
                 {
