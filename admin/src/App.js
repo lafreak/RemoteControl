@@ -102,7 +102,7 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{padding: 0, overflowX: 'hidden'}}>
+      <div>
         <Grid container>
           <Grid item xl={2} lg={2} md={12} sm={12} xs={12}>
             <ClientList 
@@ -110,6 +110,7 @@ class App extends Component {
               selectedId={this.state.selectedClient ? this.state.selectedClient.id : ""}
               onClientChange={this.handleClientChange} />
           </Grid>
+          
           <Grid item xl={8} lg={8} md={12} sm={12} xs={12}>
           {
             this.state.selectedClient &&
