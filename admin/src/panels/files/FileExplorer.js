@@ -7,28 +7,30 @@ import Divider from 'material-ui/Divider';
 import Directory from './Directory';
 
 import {socket} from './../../Socket';
+import {_globals} from './../../Globals';
+
+const computer = {
+  type: 0,
+  fullPath: 'PC',
+  name: 'My Computer',
+  children: []
+};
 
 export default class FileExplorer extends React.Component {
-  componentDidMount() {
-    // Tak bedzie wygladalo drzewo przed pobraniem jakichkolwiek danych o plikach
-    //this.state = {
-    //  computer: {
-    //    type: 0,
-    //    fullPath: 'PC',
-    //    name: 'My Computer',
-    //    children: []
-    //  }
-    //}
+  componentWillUnmount() {
+    this.setState({computer});
   }
 
   constructor() {
     super();
 
     socket.on('files', (data) => {
-      // Przykladowe dany po requescie 'C:/Program Files/WindowsDefender'
-      // data = 
+      //if (_globals.selectedId !== data.ClientId)
+      //  return;
+
+      // Example response after request: 'C:/Program Files/WindowsDefender'
       /*
-      {
+      data: {
         ClientId: '151gkeigjo43ti34i',
         OriginalPath: 'C:/Program Files/WindowsDefender',
         Files: [
@@ -41,17 +43,11 @@ export default class FileExplorer extends React.Component {
       this.insert(data.OriginalPath, data.Files);
     });
 
-    // Tak bedzie wygladalo drzewo przed pobraniem jakichkolwiek danych o plikach
-    //this.state = {
-    //  computer: {
-    //    type: 0,
-    //    fullPath: 'PC',
-    //    name: 'My Computer',
-    //    children: []
-    //  }
-    //}
+    // Initial State
+    this.state = {computer};
 
-    // Takie cos powstanie po moim mergu, na to nie patrz
+    // Full working example
+    /*
     this.state = {
       computer: 
       {
@@ -91,12 +87,7 @@ export default class FileExplorer extends React.Component {
         ]
       }
     };
-
-    // Przykladowy insert kiedy dane przyjda
-    this.insert('D:/Pigeons', [
-      { type: 1, fullPath: 'D:/Pigeons/bin', name: 'bin', children: [] },
-      { type: 2, fullPath: 'D:/Pigeons/Defender.exe', name: 'Defender.exe' }
-    ]);
+    */
   }
 
   insert = (path, files) => {
@@ -107,9 +98,12 @@ export default class FileExplorer extends React.Component {
   }
 
   findNode = (path) => {
-    var directories = path.split("/");
     var node = this.state.computer;
+    if (path.startsWith("PC")) {
+      return node;
+    }    
 
+    var directories = path.split("/");
     directories.some(function(directory) {
       var foundChild = null;
 

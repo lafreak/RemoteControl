@@ -3,3 +3,8 @@
 body {
   background-color: #F1F0F6;
 }
+
+#root {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}

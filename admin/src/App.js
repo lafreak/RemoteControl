@@ -44,13 +44,15 @@ class App extends Component {
   }
 
   _clientDisconnected(client) {
+    var {clients, selectedClient} = this.state;
+
     if (this.state.selectedClient && this.state.selectedClient.id === client.id)
-      this.setState({selectedClient: null});
+      selectedClient = null;
 
     console.log("Client disconnected: " + client.id);
-    var {clients} = this.state;
+    
     clients.delete(client.id);
-    this.setState({clients});
+    this.setState({clients, selectedClient});
   }
 
   _processes(data) {
@@ -58,8 +60,6 @@ class App extends Component {
       return;
     
     this.setState({process: data.list});
-
-    console.log(data);
   }
 
   handleFreegeoip(client, callback) {
@@ -102,7 +102,7 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{padding: 0, overflowX: 'hidden'}}>
+      <div>
         <Grid container>
           <Grid item xl={2} lg={2} md={12} sm={12} xs={12}>
             <ClientList 
@@ -110,6 +110,7 @@ class App extends Component {
               selectedId={this.state.selectedClient ? this.state.selectedClient.id : ""}
               onClientChange={this.handleClientChange} />
           </Grid>
+          
           <Grid item xl={8} lg={8} md={12} sm={12} xs={12}>
           {
             this.state.selectedClient &&
