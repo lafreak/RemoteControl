@@ -14,8 +14,8 @@ namespace Client
 
         public string fullPath;
         public List<string> children;
-        public string Name;
-        public TYPE Type = TYPE.DIRECTORY;
+        public string name;
+        public TYPE type = TYPE.DIRECTORY;
         public long Size = 0;
         public bool Accessible = true;
 
@@ -23,7 +23,12 @@ namespace Client
         {
             fullPath = path;
             children = new List<string>();
-            Name = System.IO.Path.GetFileName(fullPath);
+            name = System.IO.Path.GetFileName(fullPath);
+            if (name == string.Empty)
+            {
+                name = path.Replace("\\", string.Empty);
+                fullPath = name;
+            }
         }
     }
 }

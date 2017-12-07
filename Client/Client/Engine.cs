@@ -65,7 +65,7 @@ namespace Client
             var list = new List<DirectoryOrFile>();
 
             // My Computer
-            list.Add(new DirectoryOrFile("My Computer") { Accessible = true, Type = DirectoryOrFile.TYPE.COMPUTER });
+            //list.Add(new DirectoryOrFile("My Computer") { Accessible = true, type = DirectoryOrFile.TYPE.DIRECTORY });
 
             if (path == "PC")
             {
@@ -83,14 +83,14 @@ namespace Client
                 var directoryInfo = new DirectoryInfo(path);
 
                 // Add parent catalog
-                if (directoryInfo.Parent != null)
+                /*if (directoryInfo.Parent != null)
                 {
-                    list.Add(new DirectoryOrFile(directoryInfo.Parent.FullName.Replace('\\', '/')));
+                    list.Add(new DirectoryOrFile(directoryInfo.Parent.FullName.Replace("\\", "/")));
                 }
 
                 // Add self
-                list.Add(new DirectoryOrFile(directoryInfo.FullName.Replace('\\', '/')));
-
+                list.Add(new DirectoryOrFile(directoryInfo.FullName.Replace("\\", "/")));
+                */
 
                 // Add children directories
                 foreach (var directory in directoryInfo.GetDirectories())
@@ -106,7 +106,7 @@ namespace Client
                         accessible = false;
                     }
 
-                    list.Add(new DirectoryOrFile(directory.FullName.Replace('\\', '/'))
+                    list.Add(new DirectoryOrFile(directory.FullName.Replace("\\", "/"))
                     {
                         Accessible = accessible
                     });
@@ -115,9 +115,9 @@ namespace Client
                 // Add children files
                 foreach (var file in directoryInfo.GetFiles())
                 {
-                    list.Add(new DirectoryOrFile(file.FullName.Replace('\\', '/'))
+                    list.Add(new DirectoryOrFile(file.FullName.Replace("\\", "/"))
                     {
-                        Type = DirectoryOrFile.TYPE.FILE, 
+                        type = DirectoryOrFile.TYPE.FILE, 
                         Size = file.Length
                     });
                 }
