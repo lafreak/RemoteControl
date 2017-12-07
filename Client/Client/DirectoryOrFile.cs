@@ -12,7 +12,7 @@ namespace Client
             FILE
         }
 
-        public string Path;
+        public string fullPath;
         public List<string> children;
         public string Name;
         public TYPE Type = TYPE.DIRECTORY;
@@ -21,9 +21,9 @@ namespace Client
 
         public DirectoryOrFile(string path)
         {
-            Path = path;
+            fullPath = path;
             children = new List<string>();
-            Name = System.IO.Path.GetFileName(Path);
+            Name = System.IO.Path.GetFileName(fullPath);
         }
     }
 }

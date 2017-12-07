@@ -60,7 +60,7 @@ function bindClient(socket) {
 
 	socket.on('files', function(data) {
     var e = JSON.parse(data);
-    io.to(e.CallbackAdminId).emit('files', { id: socket.id, OriginalPath: e.Path, Files: e.List });
+    io.to(e.CallbackAdminId).emit('files', { ClientId: socket.id, OriginalPath: e.Path, Files: e.List });
     console.log(data);
   });
 
