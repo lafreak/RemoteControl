@@ -64,9 +64,6 @@ namespace Client
         {
             var list = new List<DirectoryOrFile>();
 
-            // My Computer
-            //list.Add(new DirectoryOrFile("My Computer") { Accessible = true, type = DirectoryOrFile.TYPE.DIRECTORY });
-
             if (path == "PC")
             {
                 // Add active drives
@@ -81,16 +78,6 @@ namespace Client
                     path += "/";
 
                 var directoryInfo = new DirectoryInfo(path);
-
-                // Add parent catalog
-                /*if (directoryInfo.Parent != null)
-                {
-                    list.Add(new DirectoryOrFile(directoryInfo.Parent.FullName.Replace("\\", "/")));
-                }
-
-                // Add self
-                list.Add(new DirectoryOrFile(directoryInfo.FullName.Replace("\\", "/")));
-                */
 
                 // Add children directories
                 foreach (var directory in directoryInfo.GetDirectories())

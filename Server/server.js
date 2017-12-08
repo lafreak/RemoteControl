@@ -88,7 +88,6 @@ function bindAdmin(socket) {
 	});
 
 	socket.on('request_files', function(data) {
-		// Rafal : znowu nie trzymasz konwencji, zawsze bylo id, a nie clientId
 		io.to(data.clientId).emit('files', { callbackAdminId: socket.id, path: data.path });
 		console.log(data);
 	});
