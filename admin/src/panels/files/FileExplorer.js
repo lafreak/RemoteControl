@@ -41,6 +41,7 @@ export default class FileExplorer extends React.Component {
       */
       console.log(data);
       this.insert(data.OriginalPath, data.Files);
+      this.forceUpdate();
     });
 
     // Initial State
