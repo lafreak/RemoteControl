@@ -78,11 +78,14 @@ function bindAdmin(socket) {
 	});
 
 	socket.on('play_stream', function(data) {
-		console.log(`play ${data.id}`);
+		// vulnerability: room creation spam possible
+		socket.join(streamById(data.id));
+		io.to(streamById(data.id)).emit('viewers', roomSize(streamById(data.id)));
 	});
 
 	socket.on('stop_stream', function(data) {
-		console.log(`stop ${data.id}`);
+		socket.leave(streamById(data.id));
+		io.to(streamById(data.id)).emit('viewers', roomSize(streamById(data.id)));
 	});
 }
 
@@ -117,6 +120,19 @@ function ip(client) {
   return address.replace(/^.*:/, '');
 }
 
-function streamId(socket) {
-	return `STRM${socket}`
+function streamById(id) {
+	return `STRM${id}`;
+}
+
+function streamBySocket(socket) {
+	return streamById(socket.id);
+}
+
+function roomSize(room) {
+	var room = io.sockets.adapter.rooms[room];
+	if (room) {
+		return room.length;
+	} else {
+		return 0;
+	}
 }
