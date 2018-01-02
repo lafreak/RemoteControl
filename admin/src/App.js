@@ -28,11 +28,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    socket.on('disconnect', () => this.setState({clients: new Map()}))
+    socket.on('disconnect', () => this._disconnected());
   	socket.on('clients', (clients) => clients.forEach((client) => this._clientConnected(client)));
     socket.on('client_connected', (client) => this._clientConnected(client));
     socket.on('client_disconnected', (client) => this._clientDisconnected(client));
     socket.on('processes', (data) => this._processes(data));
+  }
+
+  _disconnected() {
+    this.setState({clients: new Map(), selectedClient: null});
   }
 
   _clientConnected(client) {
