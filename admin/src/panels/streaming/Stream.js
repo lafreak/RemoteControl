@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-import List from 'material-ui/List';
 import Card, { CardHeader, CardMedia, CardContent } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import Typography from 'material-ui/Typography';

@@ -7,7 +7,6 @@ import Divider from 'material-ui/Divider';
 import Directory from './Directory';
 
 import {socket} from './../../Socket';
-import {_globals} from './../../Globals';
 
 const computer = {
   type: 0,

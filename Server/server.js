@@ -61,30 +61,10 @@ function bindAdmin(socket) {
 	socket.on('disconnect', function() {
 		console.log(`Admin ${socket.id} disconnected.`)
 	});
+
 	socket.on('processes', function(data) {
 		io.to(data.id).emit('processes', { callbackAdminId: socket.id });
 		console.log(`Admin ${socket.id} requests processes of ${data.id}`);
-
-		// Example File Explorer emits
-		/*
-		socket.emit('files', {
-			ClientId: '151gkeigjo43ti34i',
-			OriginalPath: 'PC',
-			Files: [
-				{ type: 1, fullPath: 'C:', name: 'C:', children: [] },
-				{ type: 1, fullPath: 'F:', name: 'F:', children: [] }
-			]
-		});
-
-		socket.emit('files', {
-			ClientId: '151gkeigjo43ti34i',
-			OriginalPath: 'F:',
-			Files: [
-				{ type: 1, fullPath: 'F:/Ads', name: 'Ads', children: [] },
-				{ type: 2, fullPath: 'F:/lol.png', name: 'lol.png' }
-			]
-		});
-		*/
 	});
 
 	socket.on('request_files', function(data) {
@@ -95,6 +75,14 @@ function bindAdmin(socket) {
 	socket.on('kill_process', function(data) {
 		io.to(data.id).emit('kill_process', {callbackAdminId: socket.id, processId: data.processId});
 		console.log(`Admin ${socket.id} requests process kill ${data.processId}`);
+	});
+
+	socket.on('play_stream', function(data) {
+		console.log(`play ${data.id}`);
+	});
+
+	socket.on('stop_stream', function(data) {
+		console.log(`stop ${data.id}`);
 	});
 }
 
@@ -127,4 +115,8 @@ function clients() {
 function ip(client) {
   var address = client.request.headers['x-forwarded-for'] || client.request.connection.remoteAddress;
   return address.replace(/^.*:/, '');
+}
+
+function streamId(socket) {
+	return `STRM${socket}`
 }
