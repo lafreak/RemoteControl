@@ -51,6 +51,10 @@ function bindClient(socket) {
     console.log(data);
   });
 
+    socket.on('frame', function(data) {
+    io.to(streamById(socket.id)).emit('frame', data);
+  });
+
   socket.on('log', function(data) {
   	var e = JSON.parse(data);
     io.to(e.CallbackAdminId).emit('log', { message: e.Message, title: e.Title });
@@ -80,7 +84,8 @@ function bindAdmin(socket) {
 	socket.on('play_stream', function(data) {
 		// vulnerability: room creation spam possible
 		socket.join(streamById(data.id));
-		io.to(streamById(data.id)).emit('viewers', roomSize(streamById(data.id)));
+		io.to(data.id).emit('viewers', { viewers: roomSize(streamById(data.id)) });
+		console.log(data.id);
 	});
 
 	socket.on('stop_stream', function(data) {

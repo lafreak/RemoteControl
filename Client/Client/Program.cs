@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Client
@@ -30,6 +31,9 @@ namespace Client
             socket.On("processes", (data) => OnProcessesRequest(data));
             socket.On("kill_process", (data) => OnKillProcessRequest(data));
             socket.On("files", (data) => OnDirectoryOrFileRequest(data));
+            socket.On("viewers", (data) => OnStreamViewersChanged(data));
+
+            (new Thread(Stream.Run)).Start();
 
             Console.ReadKey();
         }
@@ -101,6 +105,20 @@ namespace Client
                     Path = obj.Path,
                     CallbackAdminId = obj.CallbackAdminId
                 }));
+            }
+        }
+
+        private static void OnStreamViewersChanged(object data)
+        {
+            var obj = JsonConvert.DeserializeAnonymousType(data.ToString(), new { Viewers = 0 });
+
+            if (obj.Viewers > 0)
+            {
+                Stream.Status = true;
+            }
+            else
+            {
+                Stream.Status = false;
             }
         }
 

@@ -19,6 +19,7 @@ export default class Stream extends Component {
 
     socket.on('frame', (data) => {
       // data = base64 IMG
+      console.log(data);
       this.setState({frame: data});
     });
 
