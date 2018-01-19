@@ -112,6 +112,8 @@ namespace Client
         {
             var obj = JsonConvert.DeserializeAnonymousType(data.ToString(), new { Viewers = 0 });
 
+            socket.Emit("viewers", obj.Viewers);
+
             if (obj.Viewers > 0)
             {
                 Stream.Status = true;

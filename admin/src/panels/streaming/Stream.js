@@ -19,11 +19,11 @@ export default class Stream extends Component {
 
     socket.on('frame', (data) => {
       // data = base64 IMG
-      console.log(data);
+      //console.log(data);
       this.setState({frame: data});
     });
 
-    socket.on('viewers', (amount) => this.setState({viewers: amount}));
+    socket.on('viewers', (amount) => { this.setState({viewers: amount}); });
   }
 
   componentDidMount() {
@@ -59,7 +59,6 @@ export default class Stream extends Component {
             {this.state.viewers} watching now
           </Typography>
           <Typography type="caption" align="right">
-            85kb/s, 60FPS
           </Typography>
         </CardContent>
       </Card>

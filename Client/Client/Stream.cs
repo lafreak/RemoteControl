@@ -30,7 +30,7 @@ namespace Client
 
             try
             {
-                file = Engine.Instance.TakeFrame(12);
+                file = Engine.Instance.TakeFrame(80);
             }
             catch (Exception e)
             {
@@ -39,7 +39,9 @@ namespace Client
 
             lock (Program.socket)
             {
-                try { Program.socket.Emit("frame", "image/png;base64," + file); } catch (Exception) { }
+                try {
+                    Program.socket.Emit("frame", file);
+                } catch (Exception) { }
             }
         }
     }

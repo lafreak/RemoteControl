@@ -155,7 +155,7 @@ namespace Client
             final.Save(memoryStream, jpgEncoder, myEncoderParameters);
             final.Dispose();
 
-            return Convert.ToBase64String(memoryStream.GetBuffer());
+            return "data:image/png;base64," + Convert.ToBase64String(memoryStream.GetBuffer());
         }
 
         private Bitmap ResizeImage(Image image, int width, int height)
